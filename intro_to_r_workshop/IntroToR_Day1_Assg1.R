@@ -1,4 +1,10 @@
 # Assignment #1 #####
+#==================================#
+# Author: Juan C. Sanchez-Arias
+# Using bioinformatics.ca Introduction to R Workshop materials
+# and Assignment #1 master script.
+# =================================#
+
 # Practice on your own!
 # 
 # Assignment_data1.csv
