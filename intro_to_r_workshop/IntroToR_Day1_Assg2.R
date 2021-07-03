@@ -35,8 +35,9 @@ df$city_recoded <- factor(df$city, levels = c(0,1,2,3,4),
 ## Operations and whether those individuals' biopsies came back as 
 ## Benign or Malignant
 
-## First we'd like to know the malignancy rates overall
+## First we'd like to know the malignancy rates overall ####
   ## use the table() function to find this
+
 
 ## Do malignancy rates differ signficantly by sex? 
 

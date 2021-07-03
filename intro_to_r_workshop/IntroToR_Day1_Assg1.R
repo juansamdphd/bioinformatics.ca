@@ -59,7 +59,7 @@ boxplot(df$biomarker ~ df$responder_group,
         main = "Boxplot using base R",
         col = c("white", "grey"),
         cex.lab = 1.5)
-legend(x = 1.8, y = 94,
+legend(x = 2, y = 1.0,
        legend = c("Control", "Case"),
        fill = c("white", "grey"),
        title = "Responder group")
