@@ -77,7 +77,7 @@ ggplot(data = df_mlt, aes(x = City, y = Count, fill = Malignancy)) +
   ylab(label = "Total count") +
   xlab(label = element_blank())
 
-## Approacj #2 ####
+## Approach#2 ####
 ggplot(data = df_mlt, aes(x = Malignancy, y = Count, fill = Malignancy)) +
   geom_col(position = "dodge", colour = "black") +
   theme_bw(base_size = 14) +
