@@ -67,6 +67,13 @@ df_mlt <- melt(data = table(df$malignant_recoded, df$city_recoded),
                measure.vars = c("Benign", "Malignant"),
                variable_name = "Count")
 
+
+## Another way faster way to melt the table ####
+  ## save the table as an object ##
+malginancy_city_table <- table(df$malignant_recoded, df$city_recoded)
+
+df_mlt <- melt(malginancy_city_table)
+
 names(df_mlt) <- c("Malignancy", "City", "Count")
 
 ggplot(data = df_mlt, aes(x = City, y = Count, fill = Malignancy)) +
