@@ -93,3 +93,30 @@ ggplot(data = df_mlt, aes(x = Malignancy, y = Count, fill = Malignancy)) +
   ylab(label = "Total count") +
   xlab(label = element_blank()) +
   facet_grid(~City)
+
+## An approach using tidyverse ####
+library(magrittr)
+
+df_tidy <- read.delim("Assignment_data2.txt", header = TRUE, sep = "", as.is = TRUE)
+
+
+df_tidy %<>% mutate(sex = as_factor(case_when(sex == 0 ~ "Male",
+                                              sex == 1 ~ "Female")),
+                    city = as_factor(case_when(city == 0 ~ "Toronto",
+                                               city == 1 ~ "Addis Ababa",
+                                               city == 2 ~ "Paris",
+                                               city == 3 ~ "Sao Pauo",
+                                               city == 4 ~ "Manila")),
+                    malignant = as_factor(case_when(malignant == 0 ~ "Benign",
+                                                    malignant == 1 ~ "Malignant")),
+                    id = as_factor(id))
+
+df_tidy %>% group_by(city, malignant) %>% 
+  ggplot(aes(malignant, fill = malignant)) + geom_bar(position = "dodge", colour = "black") + 
+  theme_bw(base_size = 14) +
+  labs(title = "Skin cancer biopsies results from 5 cities") +
+  scale_fill_manual("Pathology", values = c("white", "grey")) +
+  ylab(label = "Total count") +
+  xlab(label = element_blank()) +
+  facet_grid(~city)
+
