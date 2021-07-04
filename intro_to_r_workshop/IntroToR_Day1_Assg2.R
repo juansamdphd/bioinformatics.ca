@@ -70,7 +70,7 @@ df_mlt <- melt(data = table(df$malignant_recoded, df$city_recoded),
 names(df_mlt) <- c("Malignancy", "City", "Count")
 
 ggplot(data = df_mlt, aes(x = City, y = Count, fill = Malignancy)) +
-  geom_col(position = "dodge", colour = "black") +
+  geom_bar(stat = "identity", colour = "black") +
   theme_bw(base_size = 14) +
   labs(title = "Skin cancer biopsies results from 5 cities") +
   scale_fill_manual("Pathology", values = c("white", "grey")) +
@@ -79,7 +79,7 @@ ggplot(data = df_mlt, aes(x = City, y = Count, fill = Malignancy)) +
 
 ## Approach#2 ####
 ggplot(data = df_mlt, aes(x = Malignancy, y = Count, fill = Malignancy)) +
-  geom_col(position = "dodge", colour = "black") +
+  geom_bar(stat = "identity", colour = "black") +
   theme_bw(base_size = 14) +
   labs(title = "Skin cancer biopsies results from 5 cities") +
   scale_fill_manual("Pathology", values = c("white", "grey")) +
