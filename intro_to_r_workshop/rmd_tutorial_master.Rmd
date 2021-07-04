@@ -1,0 +1,166 @@
+---
+title: "My First Markdown Report"
+author: "Gabriela Morgenshtern"
+date: "6/2/2021"
+output:
+  html_document: 
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    number_sections: true
+  pdf_document: 
+    toc: true
+    toc_depth: 2
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(tidyr)
+## setwd. NOTE: The working directory will be reset when the chunk is finished running.
+# setwd("~/Documents/UofT/BCB330/Goldenberg_Lab/cbrworkshop/rmd_lesson/data")
+
+## read in the same dataframe as we'd used earlier today
+df2 = read.table("~/Documents/UofT/BCB330/Goldenberg_Lab/cbrworkshop/rmd_lesson/data/Example_data2.txt", header = TRUE, as.is =TRUE)
+```
+
+# Header 1
+## Header 2
+### Header 3
+### Header 4
+##### Header 5
+*I am italicized text*  
+**I am bolded text**
+
++ I am item 1    
++ I am item 2  
+    - I am item 2.1  
+    - I am item 2.2  
+  
+  
+1. I am item 1    
+    1. I am ordered, nested item 1.1   
+    2. I am ordered, nested item 1.2   
+2. I am item 2    
+    - I am an unordered, nested item 
+
+# Investigating the dataframe
+``` {r investigate, echo=FALSE}
+names(df2)
+head(df2)
+dim(df2)
+str(df2)
+```
+
+### Quick stats
+* The `mean` age in our data is `r mean(df2$age)`
+* The `std` of the age in our data is `r sd(df2$age)`
+* The `range` of the ages in our data is [`r range(df2$age)`]
+
+#### Create sex, site, and treated factor 
+```{r new_factors, echo=FALSE}
+df2$sex_factor = factor(df2$sex, levels = c("M","F"), labels = c("Male","Female"))
+df2$site_factor = factor(df2$site, levels = c(1,2), labels = c("site 1","site 2"))
+df2$treatment_factor = factor(df2$treated, levels = c(0,1), labels = c("control","treated"))
+```
+
+
+```{r aggregate_data, include=FALSE}
+# Name grouping variable
+aggregate(df2$age,list(df2$site),mean)
+aggregate(df2$age,list(df2$site,df2$sex),mean)
+aggregate(df2$age,
+          list("site" = df2$site_factor,
+               "sex" = df2$sex_factor), 
+          mean)
+```
+
+### Exploring our new factors with tables
+```{r tables, echo=FALSE}
+knitr::kable(table(df2$treatment_factor, df2$sex_factor), 
+             caption = 'A caption for our table.')
+knitr::kable(table(df2$treatment_factor, df2$site_factor))
+knitr::kable(table(df2$sex_factor, df2$site_factor))
+# knitr::kable(df2$sex_factor)
+```
+
+#### Run a chi-square test to see if each category is randomly distributed relative to the others
+```{r chisq, echo=FALSE}
+chisq.test(table(df2$treatment_factor, df2$sex_factor))
+chisq.test(table(df2$treatment_factor, df2$site_factor))
+chisq.test(table(df2$sex_factor, df2$site_factor))
+```
+
+# Plotting our new factors
+### Barplots of our new factors
+```{r barplot1, fig.width=10, fig.height=4, echo=FALSE}
+barplot(table(df2$treatment_factor, df2$sex_factor))
+barplot(table(df2$treatment_factor, df2$site_factor))
+```
+
+``` {r barplot3, fig.width=10, fig.height=4, echo=FALSE}
+barplot(table(df2$sex_factor, df2$site_factor))
+```
+
+### Legend-formatted barplot of our last table  
+```{r barplot2, fig.width=10,fig.height=3, echo=FALSE}
+## dress up one of the barplots 
+barplot(table(df2$sex_factor, df2$site_factor),
+        beside = TRUE,
+        col = c("dodgerblue","darkorchid"),
+        ylim = c(0,45),cex.names = 1.5,cex.axis = 1.5)
+legend(x = 1, 45,
+       legend = c("M","F"),
+       fill = c("dodgerblue","darkorchid"), cex = 1.2, ncol=2)
+```
+
+# Plotting our marker data 
+### Plotting a boxplot of each maker
+```{r boxplot, fig.width=10,fig.height=4, echo=FALSE}
+pairs(df2[,grep(pattern = "marker",x = names(df2))])
+par(mfrow=c(1,5))
+
+boxplot(marker1 ~ treatment_factor,data = df2)
+boxplot(marker2 ~ treatment_factor,data = df2)
+boxplot(marker3 ~ treatment_factor,data = df2)
+boxplot(marker4 ~ treatment_factor,data = df2)
+boxplot(marker5 ~ treatment_factor,data = df2)
+```
+
+### Reshaping our data to see all the markers on the same plot 
+```{r reshape, echo=TRUE}
+df2_mlt = tidyr::pivot_longer(data = df2, 
+               cols = c("marker1","marker2","marker3","marker4","marker5"),
+               names_to = "Marker")
+
+```
+
+## Our new boxplot 
+```{r ggplot, fig.width=10,fig.height=4, fig.cap=paste("A caption for our figure"), echo=FALSE}
+ggplot(df2_mlt,aes(x = treatment_factor, y = value)) +
+  geom_boxplot(aes(fill = treatment_factor)) + 
+  facet_grid(~Marker) + xlab("Treatment") + ylab("Marker (unit)") + 
+  scale_fill_manual(values = c("control" = "turquoise","treated" = "orchid"),
+                    name= "Treatment")+
+  theme(axis.text.x=element_text(angle=45))
+
+```
+
+# T-tests on each marker
+```{r t-tests, echo=FALSE}
+t.test(marker1 ~ treatment_factor,data = df2)
+t.test(marker2 ~ treatment_factor,data = df2)
+t.test(marker3 ~ treatment_factor,data = df2)
+t.test(marker4 ~ treatment_factor,data = df2)
+t.test(marker5 ~ treatment_factor,data = df2)
+
+```
+
+
+
+
+ 
+  
+
+
+

@@ -71,8 +71,17 @@ names(df_mlt) <- c("Malignancy", "City", "Count")
 
 ggplot(data = df_mlt, aes(x = City, y = Count, fill = Malignancy)) +
   geom_col(position = "dodge", colour = "black") +
-  theme_light(base_size = 14) +
+  theme_bw(base_size = 14) +
   labs(title = "Skin cancer biopsies results from 5 cities") +
   scale_fill_manual("Pathology", values = c("white", "grey")) +
   ylab(label = "Total count") +
   xlab(label = element_blank())
+
+ggplot(data = df_mlt, aes(x = Malignancy, y = Count, fill = Malignancy)) +
+  geom_col(position = "dodge", colour = "black") +
+  theme_bw(base_size = 14) +
+  labs(title = "Skin cancer biopsies results from 5 cities") +
+  scale_fill_manual("Pathology", values = c("white", "grey")) +
+  ylab(label = "Total count") +
+  xlab(label = element_blank()) +
+  facet_grid(~City)
