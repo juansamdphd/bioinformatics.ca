@@ -202,6 +202,8 @@ marker_name = c()
 ctrl_mean = c()
 case_mean = c()
 p_value = c()
+ci_low = c()
+ci_high = c()
 
 for(i in 1:5){
   marker = paste0("marker",i)
@@ -214,9 +216,11 @@ for(i in 1:5){
   ctrl_mean[i] = my_ttest$estimate[1]
   case_mean[i] = my_ttest$estimate[2]
   p_value[i] = my_ttest$p.value
+  ci_low[i] = my_ttest$conf.int[1]
+  ci_high[i] = my_ttest$conf.int[2]
 }
 
-results_df = data.frame(marker_name,ctrl_mean,case_mean,p_value)
+results_df = data.frame(marker_name,ctrl_mean,case_mean,p_value, ci_low, ci_high)
 
 (results_sorted = results_df[order(results_df$p_value),])
 head(results_sorted)
