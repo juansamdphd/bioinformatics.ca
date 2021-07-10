@@ -1,6 +1,7 @@
 
 ## setwd
-setwd("C:/Users/lauren erdman/Desktop/Teaching/CBW/Intro2R/2020Slides/")
+path <- "~/GitHub/bioinformatics.ca/intro_to_r_workshop"
+setwd("~/GitHub/bioinformatics.ca/intro_to_r_workshop")
 
 ## read .txt data instead of .csv so use read.table instead of read.csv
 df2 = read.table("Example_data2_v2.txt", header = TRUE, as.is =TRUE)
@@ -228,17 +229,17 @@ head(results_sorted)
 
 ## three ways to save a .csv file to a specific directory
   ## use the default working dir
-write.csv(results_sorted, 
-          file = "C:/Users/larun/Desktop/CBW/R Workshops 2020/my_results_table.csv", 
-          quote=FALSE, row.names=FALSE)
-
-  ## set the path in the file name
-write.csv(results_sorted, 
-          file = "C:/Users/larun/Desktop/CBW/R Workshops 2020/my_results_table.csv", 
-          quote=FALSE, row.names=FALSE)
+# write.csv(results_sorted, 
+#           file = "C:/Users/larun/Desktop/CBW/R Workshops 2020/my_results_table.csv", 
+#           quote=FALSE, row.names=FALSE)
+# 
+#   ## set the path in the file name
+# write.csv(results_sorted, 
+#           file = "C:/Users/larun/Desktop/CBW/R Workshops 2020/my_results_table.csv", 
+          # quote=FALSE, row.names=FALSE)
 
   ## re-set your working directory before saving your file 
-setwd("C:/Users/larun/Desktop/CBW/R Workshops 2020/")
+# setwd("C:/Users/larun/Desktop/CBW/R Workshops 2020/")
 write.csv(results_sorted, 
           file = "my_results_table.csv", 
           quote=FALSE, row.names=FALSE)
