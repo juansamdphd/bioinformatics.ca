@@ -274,7 +274,7 @@ for(i in 1:5){
 ###
 ### LINEAR REGRESSION 
 ###
-
+par(mar = c(6,5,3,1))
 plot(df2$marker2, df2$marker3)
 
 
