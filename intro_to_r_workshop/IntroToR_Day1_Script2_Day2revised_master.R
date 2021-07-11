@@ -258,6 +258,12 @@ marker_prop = function(in_vec){
   return(prop_out)
 }
 
+# my_marker_prop <- function(marker_vec){
+#   expo_marker_true = sum(exp(marker_vec) > 2)
+#   prop_exp_value = expo_marker_true/length(marker_vec)
+#   return(prop_exp_value)
+# }
+
 marker_prop(df2$marker1)
 
 for(i in 1:5){
