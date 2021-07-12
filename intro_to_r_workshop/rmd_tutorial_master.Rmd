@@ -1,7 +1,7 @@
 ---
-title: "My First Markdown Report"
-author: "Gabriela Morgenshtern"
-date: "6/2/2021"
+title: "My First Markdown Report - bioinformatics INR Final Project"
+author: "Juan C. Sanchez-Arias"
+date: "2021-07-11"
 output:
   html_document: 
     toc: true
@@ -21,28 +21,8 @@ library(tidyr)
 # setwd("~/Documents/UofT/BCB330/Goldenberg_Lab/cbrworkshop/rmd_lesson/data")
 
 ## read in the same dataframe as we'd used earlier today
-df2 = read.table("~/Documents/UofT/BCB330/Goldenberg_Lab/cbrworkshop/rmd_lesson/data/Example_data2.txt", header = TRUE, as.is =TRUE)
+df2 = read.table("Example_data2_v2.txt", header = TRUE, as.is =TRUE)
 ```
-
-# Header 1
-## Header 2
-### Header 3
-### Header 4
-##### Header 5
-*I am italicized text*  
-**I am bolded text**
-
-+ I am item 1    
-+ I am item 2  
-    - I am item 2.1  
-    - I am item 2.2  
-  
-  
-1. I am item 1    
-    1. I am ordered, nested item 1.1   
-    2. I am ordered, nested item 1.2   
-2. I am item 2    
-    - I am an unordered, nested item 
 
 # Investigating the dataframe
 ``` {r investigate, echo=FALSE}
